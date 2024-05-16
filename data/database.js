@@ -14,7 +14,7 @@ exports.DB = exports.dbFileName = void 0;
 const sqlite3_1 = require("sqlite3");
 const sqlite_1 = require("sqlite");
 // then create & open the connection
-exports.dbFileName = './data/car_luxury.db';
+exports.dbFileName = './car_luxury.db';
 class DB {
     static createDBConnection() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,17 +22,17 @@ class DB {
                 filename: `./${exports.dbFileName}`,
                 driver: sqlite3_1.Database
             });
-            yield DB.ensureTableCreated(db); // Fix: Change method call from 'ensureTablesCreated' to 'ensureTableCreated'
+            yield DB.ensureTablesCreated(db);
             return db;
         });
     }
-    static ensureTableCreated(connection) {
+    static ensureTablesCreated(connection) {
         return __awaiter(this, void 0, void 0, function* () {
             yield connection.run(`create table if not exists User(
-            email text NOT NULL PRIMARY KEY,
+            email TEXT NOT NULL PRIMARY KEY,
             fullName TEXT NOT NULL,
-            role text default 'user',
-            password Text not null
+            role TEXT default 'user',
+            password TEXT NOT NULL
             ) strict`);
         });
     }

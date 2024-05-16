@@ -32,18 +32,15 @@ exports.users = [
 ];
 setTimeout(() => __awaiter(void 0, void 0, void 0, function* () {
     const db = yield database_1.DB.createDBConnection();
-    const users = yield db.all('select * from User');
-    console.log(users);
+    exports.users = yield db.all('select * from User');
+    console.log(exports.users);
     yield db.close();
 }), 0);
-console.log(exports.users);
 function createUser(user) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            exports.users.push(user);
-            //toDo: persist user in database
             const db = yield database_1.DB.createDBConnection();
-            const stmt = yield db.prepare('insert into User (email, fullName, role, password) values (?1,?2,?3,?4)');
+            const stmt = yield db.prepare('insert into User (email, fullname, role, password) values (?1,?2,?3,?4)');
             yield stmt.bind({ 1: user.email, 2: user.fullName, 3: user.role, 4: user.password });
             const operationResult = yield stmt.run();
             yield stmt.finalize();
@@ -59,3 +56,4 @@ function createUser(user) {
         return true;
     });
 }
+console.log(exports.users);
